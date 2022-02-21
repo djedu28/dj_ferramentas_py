@@ -1,23 +1,22 @@
 # @DjEdu28 - Licença MIT - Copyright (c) 2022 @DjEdu28 (Luis Eduardo Silva dos Santos) 
 """
 Criado por @DjEdu28 EM: 01/2022
-Atualizado em: 01/2022
 Monitor da bateria
-versão 2.0
+versão 1.0
 
 Objetivo da ferramenta:
     Observar a porcentagem da bateria e informar se tá descarregando ou carregando
     Ainda aletar caso chegue em um nivel critico de carga
     
 novidades:
-    * Diferenciando notificação pelo som
+    * colorindo a tela
     
 já implementado:
     * Ler dados da bateria
     * Informar por som mudança de estado
-    * colorindo a tela
+
 Ps.:
-    Tentativa de diferenciar as notificações usando notas/tons diferentes
+    Necessita melhorar as notificações sonoras
 """
 import psutil
 from time import sleep
@@ -27,21 +26,6 @@ from os import system as sys
     # mm, ss = divmod(secs, 60)
     # hh, mm = divmod(mm, 60)
     # return "%d:%02d:%02d" % (hh, mm, ss)
-notas = {
-    "do" : 261,
-    "re" : 293,             
-    "mi" : 329,      
-    "fa" : 349,    
-    "sol": 392,  
-    "la" : 0,
-    "si" : 0,          
-} 
-def tone(freq,duration):
-    from winsound import Beep
-    # duration = 1000  # milliseconds
-    if freq in notas: freq = notas[freq]
-    
-    Beep(freq, duration)
 
 def main():
     avisos = 0
@@ -53,20 +37,16 @@ def main():
       print("Carregando:", battery.power_plugged," "*10,end=" ")
       if battery.percent < 50 and battery.power_plugged == False:
         sys("color 47")
-        [tone(3300,200*n) for n in range(1,4)]
-        print("Bateria baixa",sep="")
+        print('\a'+"Bateria baixa",sep="")
         
       elif (battery.power_plugged == False and avisos<3):
         sys("color 67")
-        #print('\a'+"Plug desconectado")
-        tone(4000,400)
-        print('\t'+"Plug desconectado")
+        print('\a'+"Plug desconectado")
         avisos+=1
       elif (battery.power_plugged and avisos>=3):
         avisos = 0
-        tone(1100,200);tone(1100,300)
         #print("\a Carregando...")
-        print("\tCarregando...")
+        print('\a'+"\tCarregando...")
         sys("color 2F")
       elif (battery.percent > 50 and battery.power_plugged):
         sys("color 0F")
