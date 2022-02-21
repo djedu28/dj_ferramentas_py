@@ -2,10 +2,14 @@
 
 ## Historia
 Todo projeto começa de uma necessidade, a minha era monitorar a bateria do notebook
-Com problemas no carregador, não podia tirar o olho do ícone de carga na bandeja, 
+com problemas no carregador, não podia tirar o olho do ícone de carga na bandeja, 
 ou então o notebook descarregava e eu só ia saber quando o Windows fosse me notificar (com 15% de carga restante)
+o que é tarde de mais.
 
 Por conta da dificuldade que era carregar, quanto mais cedo soubesse que tava descarregando, mais cedo poderia corrigir.
+
+Então esse programa informa se o carregador foi conectado/desconectado  
+e faz ininterruptos  alertas assim que atingir o nível critico (que eu defini 50%)
 
 ## Objetivo da ferramenta:
 - Observar a porcentagem da bateria e informar se tá descarregando ou carregando
@@ -35,7 +39,7 @@ Por conta da dificuldade que era carregar, quanto mais cedo soubesse que tava de
 # REQUISITOS
 
 ## python 3.0+
-	acesse [https://www.python.org/](https://www.python.org/) para instalar
+acesse [https://www.python.org/](https://www.python.org/) para instalar
 
 ## psutil
 psutil (utilitários de processo e sistema), para saber mais [clique aqui](https://pypi.org/project/psutil/).
