@@ -3,23 +3,21 @@
 Criado por @DjEdu28 EM: 01/2022
 Atualizado em: 01/2022
 Monitor da bateria
-versão 2.1
+versão 2.0
 
 Objetivo da ferramenta:
     Observar a porcentagem da bateria e informar se tá descarregando ou carregando
     Ainda aletar caso chegue em um nivel critico de carga
     
 novidades:
-    * Melhorando notificação sonora
+    * Diferenciando notificação pelo som
     
 já implementado:
     * Ler dados da bateria
     * Informar por som mudança de estado
     * colorindo a tela
-    * Diferenciando notificação pelo som
-    
 Ps.:
-   Melhoria nas notificações usando notas/tons diferentes
+    Tentativa de diferenciar as notificações usando notas/tons diferentes
 """
 import psutil
 from time import sleep
@@ -45,13 +43,6 @@ def tone(freq,duration):
     
     Beep(freq, duration)
 
-def alerta(nota="fa"):
-    from time import sleep
-    print('\a') # som de notificação
-    for i in range(4):
-        tone(notas[nota]*(i+1),300)
-        sleep(0.200)
-
 def main():
     avisos = 0
     sys("color 0F")
@@ -62,21 +53,18 @@ def main():
       print("Carregando:", battery.power_plugged," "*10,end=" ")
       if battery.percent < 50 and battery.power_plugged == False:
         sys("color 47")
-        # [tone(3300,200*n) for n in range(1,4)]
-        alerta()
+        [tone(3300,200*n) for n in range(1,4)]
         print("Bateria baixa",sep="")
         
       elif (battery.power_plugged == False and avisos<3):
         sys("color 67")
         #print('\a'+"Plug desconectado")
-        #tone(4000,400)
-        alerta(nota="do")
+        tone(4000,400)
         print('\t'+"Plug desconectado")
         avisos+=1
       elif (battery.power_plugged and avisos>=3):
         avisos = 0
-        #tone(1100,200);tone(1100,300)
-        alerta(nota="do")
+        tone(1100,200);tone(1100,300)
         #print("\a Carregando...")
         print("\tCarregando...")
         sys("color 2F")
